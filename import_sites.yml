@@ -52,9 +52,11 @@ source:
     5:
       field_name_short: 'Short Name'
     6:
-      field_coordinates: 'Site Coordinates'
+      field_country: 'Country' 
     7:
-      field_country: 'Country'
+      lat: 'lat'
+    8: 
+      lon: 'lon'
     
 process:
   type:
@@ -68,7 +70,15 @@ process:
   field_name: field_name
   field_name_short: field_name_short
   field_deims_id: field_deims_id
+  # needs field keys
   field_country: field_country
+  # geofield migration not working
+  field_coordinates: 
+    plugin: geofield_latlon
+    source: 
+      - lat
+      - lon
+
   
 destination:
   plugin: entity:node
