@@ -1,0 +1,65 @@
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-source-plugins/migrating-data-from-a-csv-source
+
+# vendor/drush/drush/drush migrate-import site_csv_import
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop site_csv_import
+# vendor/drush/drush/drush migrate-reset-status site_csv_import
+# vendor/drush/drush/drush migrate-rollback site_csv_import 
+
+# For testing:
+# vendor/drush/drush/drush migrate-import site_csv_import --limit 20
+
+
+# encode csv to utf-8 first (Encoding/Convert to UTF-8)
+
+id: site_csv_import
+uuid: 95381cac-62d1-46c7-b0e1-3ad9fe687982
+label: Import sites
+migration_groups:
+  - ACME import
+
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/site.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [nid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      nid: 'Node ID'
+    1:
+      field_name: 'Site Name'
+    2:
+      field_name_short: 'Short Name'
+    3:
+      field_deims_id: 'UUID/DEIMS.ID'
+    4:
+      field_coordinates: 'Site Coordinates'
+      
+process:
+  type:
+    plugin: default_value
+    default_value: site
+  nid: nid
+  uuid: field_deims_id
+  field_name: field_name
+  field_name_short: field_name_short
+  field_deims_id: field_deims_id
+  
+destination:
+  plugin: entity:node
+  default_bundle: site
