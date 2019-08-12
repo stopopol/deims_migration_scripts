@@ -42,20 +42,27 @@ source:
     0:
       nid: 'Node ID'
     1:
-      field_name: 'Site Name'
-    2:
-      field_name_short: 'Short Name'
-    3:
       field_deims_id: 'UUID/DEIMS.ID'
+    2:
+      created: 'Created'
+    3: 
+      updated: 'Updated'    
     4:
+      field_name: 'Site Name'
+    5:
+      field_name_short: 'Short Name'
+    6:
       field_coordinates: 'Site Coordinates'
-      
+    
 process:
   type:
     plugin: default_value
     default_value: site
   nid: nid
   uuid: field_deims_id
+  # dates need to be in unix format
+  created: created
+  changed: updated
   field_name: field_name
   field_name_short: field_name_short
   field_deims_id: field_deims_id
