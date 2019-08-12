@@ -53,6 +53,8 @@ source:
       field_name_short: 'Short Name'
     6:
       field_coordinates: 'Site Coordinates'
+    7:
+      field_country: 'Country'
     
 process:
   type:
@@ -66,6 +68,7 @@ process:
   field_name: field_name
   field_name_short: field_name_short
   field_deims_id: field_deims_id
+  field_country: field_country
   
 destination:
   plugin: entity:node
