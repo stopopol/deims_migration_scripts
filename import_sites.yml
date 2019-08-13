@@ -54,9 +54,7 @@ source:
     6:
       field_country: 'Country' 
     7:
-      lat: 'lat'
-    8: 
-      lon: 'lon'
+      uid: 'Author ID'
     
 process:
   type:
@@ -64,6 +62,7 @@ process:
     default_value: site
   nid: nid
   uuid: field_deims_id
+  uid: uid
   # dates need to be in unix format
   created: created
   changed: updated
@@ -72,12 +71,7 @@ process:
   field_deims_id: field_deims_id
   # needs field keys
   field_country: field_country
-  # geofield migration not working
-  field_coordinates: 
-    plugin: geofield_latlon
-    source: 
-      - lat
-      - lon
+  # geofield migration not working   field_coordinates: 
 
   
 destination:
