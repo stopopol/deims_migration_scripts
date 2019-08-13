@@ -1,0 +1,58 @@
+id: custom_user_migration
+label: Custom user migration
+uuid: af6249fb-8af4-47b3-ae0a-8d398318a032
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/users.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [uid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      uid: 'uid'
+    1:
+      name: 'name'
+    2: 
+      pass: 'Password'
+    3:
+      mail: 'E-Mail Address'
+    4: 
+      created: 'created'
+    5: 
+      access: 'access'
+    6:
+      login: 'login'
+    7: 
+      status: 'status'
+    8:
+      timezone: 'timezone'
+    9: 
+      roles: 'role'
+
+process:
+  uid: uid
+  name: name
+  roles: roles
+  mail: mail
+  pass: pass
+  created: created
+  access: access
+  status: status
+  timezone: timezone
+  
+destination:
+  plugin: entity:user
