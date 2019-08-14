@@ -8,7 +8,7 @@
 # vendor/drush/drush/drush migrate-rollback ecosystem_types_and_land_use_term_migration 
 
 id: ecosystem_types_and_land_use_term_migration
-
+uuid: 757d1d62-d2b6-4e62-a672-77e3ead38758
 label: 'ecosystem_types_and_land_use term migration'
 source:
   plugin: csv
