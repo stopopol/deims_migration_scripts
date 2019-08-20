@@ -46,4 +46,4 @@ process:
     source: parent
 destination:
   plugin: entity:taxonomy_term
-  default_bundle: ecosystem_types_and_land_use
+  default_bundle: eunis_habitat_term_migration
