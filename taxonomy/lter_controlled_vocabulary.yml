@@ -1,0 +1,43 @@
+# https://agaric.coop/blog/migrating-taxonomy-terms-and-multivalue-fields-drupal
+# https://drupal.stackexchange.com/questions/196894/how-to-import-taxonomy-with-hierarchy
+
+# vendor/drush/drush/drush migrate-import lter_controlled_vocabulary_term_migration
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop lter_controlled_vocabulary_term_migration
+# vendor/drush/drush/drush migrate-reset-status lter_controlled_vocabulary_term_migration
+# vendor/drush/drush/drush migrate-rollback lter_controlled_vocabulary_term_migration
+
+id: lter_controlled_vocabulary_term_migration
+uuid: 7d92ec31-a74c-4588-b154-833c2d9db423
+label: 'lter_controlled_vocabulary_term_migration term migration'
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/taxonomy/lter_controlled_vocabulary.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [tid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      tid: 'Term ID'
+    1:
+      label: 'Term Label'
+process:
+  tid: tid
+  name: label
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: lter_controlled_vocabulary
