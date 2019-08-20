@@ -35,9 +35,15 @@ source:
       tid: 'Term ID'
     1:
       label: 'Term Label'
+    2:
+      parent: 'Parent ID'
 process:
   tid: tid
   name: label
+  parent:
+    plugin: default_value
+    default_value: 0
+    source: parent
 destination:
   plugin: entity:taxonomy_term
-  default_bundle: eunis_habitat
+  default_bundle: ecosystem_types_and_land_use
