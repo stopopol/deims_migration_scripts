@@ -1,0 +1,43 @@
+# https://agaric.coop/blog/migrating-taxonomy-terms-and-multivalue-fields-drupal
+# https://drupal.stackexchange.com/questions/196894/how-to-import-taxonomy-with-hierarchy
+
+# vendor/drush/drush/drush migrate-import spatial_design_term_migration
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop spatial_design_term_migration
+# vendor/drush/drush/drush migrate-reset-status spatial_design_term_migration
+# vendor/drush/drush/drush migrate-rollback spatial_design_term_migration 
+
+id: spatial_design_term_migration
+uuid: 000632ef-4e7e-4c27-9c42-cbd3821ec857
+label: 'spatial_design term migration'
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/taxonomy/spatial_design.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [tid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      tid: 'Term ID'
+    1:
+      label: 'Term Label'
+process:
+  tid: tid
+  name: label
+destination:
+  plugin: entity:taxonomy_term
+  default_bundle: spatial_design
