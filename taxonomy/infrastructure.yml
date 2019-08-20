@@ -8,7 +8,7 @@
 # vendor/drush/drush/drush migrate-rollback infrastructure_term_migration 
 
 id: infrastructure_term_migration
-	
+uuid: a8554a33-9440-4a8c-a638-2688db951462	
 label: 'infrastructure term migration'
 source:
   plugin: csv
