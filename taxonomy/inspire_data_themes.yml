@@ -46,6 +46,7 @@ process:
     plugin: default_value
     default_value: 0
     source: parent
+  field_uri: uri
 destination:
   plugin: entity:taxonomy_term
   default_bundle: inspire_data_themes
