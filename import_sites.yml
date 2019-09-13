@@ -60,6 +60,8 @@ source:
       lat: 'lat'
     9:
       lon: 'lon'
+    10:
+      images: 'images' # experimental
     
 process:
   type:
@@ -81,6 +83,21 @@ process:
     source: 
       - lat
       - lon
+  field_images:
+    -
+      plugin: explode
+      source: deims_image_migration
+      delimiter: |
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: callback
+      callable: strtoupper
+    -
+      plugin: migration
+      migration: deims_image_migration
+      no_stub: true  
   
 destination:
   plugin: entity:node
