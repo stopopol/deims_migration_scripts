@@ -1,35 +1,74 @@
+# https://www.mtech-llc.com/blog/ada-hernandez/how-migrate-images-drupal-8-using-csv-source
+
 id: deims_image_migration
 uuid: dca99b3f-827d-4cf0-802c-52a48313b560
+dependencies:
+  module:
+    - file
 label: Images
 migration_group: drupal7
 migration_tags:
   - Drupal 7
 source:
-  plugin: d7_file
   constants:
-    source_base_path: '/var/www/deims/' # Full location of your drupal7 site
+    source_base_path: /var/www/deims/sites/default/files/
+    uri_file: 'public://photos'
+  plugin: csv
+  track_changes: true
+  plugin: csv
+  path: '/home/ilter_cwohner/drupal_migration/files.csv'
+  header_row_count: 1
+  enclosure: '"'
+  keys:
+    - fid
+  ids: [fid]
+  column_names:
+    0:
+      fid: 'fid'
+    1:
+      filename: 'filename'
+    2:
+      uri: 'uri'
+    3:
+      filemime: 'filemime'
+    4:
+      size: 'size'
+    5:
+      status: 'status'
+    6:
+      created: 'created'
+    7:
+      changed: 'changed'
+  constants:
+    source_uri: 'public://importable_files'
+    dest_uri: 'public://images'
 process:
-  fid: fid
-  filename: filename
   source_full_path:
     -
       plugin: concat
       delimiter: /
       source:
         - constants/source_base_path
-        - filepath
+        - filename
     -
       plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - filename
+    -
+      plugin: urlencode
+  filename: filename
   uri:
     plugin: file_copy
     source:
       - '@source_full_path'
-      - uri
-  filemime: filemime
-  status: status
-  created: timestamp
-  changed: timestamp
-  uid: uid
+      - '@uri_file'
 destination:
-  plugin: entity:file
-migration_dependencies: {}
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }
