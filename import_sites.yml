@@ -85,3 +85,8 @@ process:
 destination:
   plugin: entity:node
   default_bundle: site
+  
+  
+migration_dependencies:
+  required: 
+    - deims_image_migration
