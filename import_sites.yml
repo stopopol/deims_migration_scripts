@@ -1,4 +1,5 @@
 # https://www.drupal.org/docs/8/api/migrate-api/migrate-source-plugins/migrating-data-from-a-csv-source
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-destination-plugins-examples/migrating-files-and-images
 
 # vendor/drush/drush/drush migrate-import site_csv_import
 # vendor/drush/drush/drush migrate-status
