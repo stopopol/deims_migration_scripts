@@ -62,7 +62,7 @@ process:
   uri:
     plugin: file_copy
     source:
-      - '@source_full_path'
+      - uri
       - '@uri_file'
 destination:
   plugin: 'entity:file'
