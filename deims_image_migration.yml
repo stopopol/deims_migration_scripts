@@ -5,17 +5,16 @@ uuid: dca99b3f-827d-4cf0-802c-52a48313b560
 dependencies:
   module:
     - file
-label: Images
+label: DEIMS Site Images - Sub-routine
 migration_group: drupal7
 migration_tags:
   - Drupal 7
 source:
   constants:
-    source_base_path: /var/www/deims/sites/default/files/
+    source_base_path: /var/www/deims/sites/default/files
     uri_file: 'public://photos'
   plugin: csv
   track_changes: true
-  plugin: csv
   path: '/home/ilter_cwohner/drupal_migration/files.csv'
   header_row_count: 1
   enclosure: '"'
@@ -39,9 +38,7 @@ source:
       created: 'created'
     7:
       changed: 'changed'
-  constants:
-    source_uri: 'public://importable_files'
-    dest_uri: 'public://images'
+    
 process:
   source_full_path:
     -
@@ -69,6 +66,3 @@ process:
       - '@uri_file'
 destination:
   plugin: 'entity:file'
-migration_dependencies:
-  required: {  }
-  optional: {  }
