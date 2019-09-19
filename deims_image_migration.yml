@@ -9,6 +9,8 @@
 
 # vendor/drush/drush/drush migrate-import deims_image_migration --limit 20
 
+# convert to utf-8 before import
+
 id: deims_image_migration
 uuid: dca99b3f-827d-4cf0-802c-52a48313b560
 dependencies:
