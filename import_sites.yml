@@ -91,12 +91,8 @@ process:
   field_images:
     -
       plugin: explode
-      delimiter: |
+      delimiter: ;
       source: images
-    -
-      plugin: migration_lookup
-      migration: deims_image_migration
-      no_stub: true
 destination:
   plugin: entity:node
   default_bundle: site
