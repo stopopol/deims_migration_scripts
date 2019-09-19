@@ -1,5 +1,13 @@
 # https://www.mtech-llc.com/blog/ada-hernandez/how-migrate-images-drupal-8-using-csv-source
 
+# vendor/drush/drush/drush migrate-import deims_image_migration
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop deims_image_migration
+# vendor/drush/drush/drush migrate-reset-status deims_image_migration
+# vendor/drush/drush/drush migrate-rollback deims_image_migration 
+
+# vendor/drush/drush/drush migrate-import deims_image_migration --limit 20
+
 id: deims_image_migration
 uuid: dca99b3f-827d-4cf0-802c-52a48313b560
 dependencies:
