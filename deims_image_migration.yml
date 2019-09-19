@@ -1,4 +1,5 @@
 # https://www.mtech-llc.com/blog/ada-hernandez/how-migrate-images-drupal-8-using-csv-source
+# https://stackoverflow.com/questions/44348853/drupal-8-migrate-image-field-from-csv-with-multiple-values
 
 # vendor/drush/drush/drush migrate-import deims_image_migration
 # vendor/drush/drush/drush migrate-status
@@ -72,5 +73,6 @@ process:
     source:
       - uri
       - '@uri_file'
+  fid: fid
 destination:
   plugin: 'entity:file'
