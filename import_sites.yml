@@ -61,7 +61,7 @@ source:
     9:
       lon: 'lon'
     10:
-      images: 'images' # experimental
+      images: 'Site Images' # experimental
     
 process:
   type:
@@ -83,27 +83,24 @@ process:
     source: 
       - lat
       - lon
+  field_boundaries: # needs to be overwritten with actual boundaries values using a sql query
+    plugin: geofield_latlon
+    source: 
+      - lat
+      - lon
   field_images:
     -
       plugin: explode
-      source: deims_image_migration
       delimiter: |
+      source: images
     -
-      plugin: callback
-      callable: trim
-    -
-      plugin: callback
-      callable: strtoupper
-    -
-      plugin: migration
+      plugin: migration_lookup
       migration: deims_image_migration
-      no_stub: true  
-  
+      no_stub: true
 destination:
   plugin: entity:node
   default_bundle: site
-  
-  
+
 migration_dependencies:
-  required: 
+  optional: 
     - deims_image_migration
