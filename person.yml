@@ -14,7 +14,7 @@
 # encode csv to utf-8 first (Encoding/Convert to UTF-8)
 
 id: person_csv_import
-uuid: 
+uuid: '9baf146a-0629-4cb1-8222-9d1a1f500eb3'
 label: Import person
 migration_groups:
   - ACME import
@@ -49,7 +49,7 @@ source:
     3:
       uid: 'Author ID'
     3:
-      field_person_name: 'Person Name'
+      person_name: 'Person Name'
     
 process:
   type:
@@ -65,11 +65,7 @@ process:
     -
       plugin: explode
       delimiter: ;
-      source: name
+      source: person_name
 destination:
   plugin: entity:node
   default_bundle: person
-
-migration_dependencies:
-  optional: 
-    - deims_person_name_migration
