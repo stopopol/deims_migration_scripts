@@ -54,6 +54,10 @@ source:
       title: 'Title'
     5:
       description: 'General description'
+    6:
+      urlTitle: 'url Title'
+    7:
+      urlValue: 'url'
 process:
   type:
     plugin: default_value
@@ -63,8 +67,10 @@ process:
   # dates need to be in unix format
   created: created
   uuid: uuid
-  title: title
+  field_name: title
   field_abstract: description
+  field_url/title: urlTitle
+  field_url/value: urlValue
   
 destination:
   plugin: entity:node
