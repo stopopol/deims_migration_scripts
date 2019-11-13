@@ -48,41 +48,48 @@ source:
       updated: 'Updated'
     3:
       uid: 'Author ID'
-    3:
-      name_title: 'name title'
     4:
-      name_family: 'Family Name'
+      name_title: 'name title'
     5:
+      name_family: 'Family Name'
+    6:
       name_given: 'First Name'
-    6: 
-      orcid: 'Orcid'
     7: 
-      address_country: 'address_country'
+      orcid: 'Orcid'
     8: 
-      address_admin: 'address_admin'
+      address_country: 'address_country'
     9: 
-      address_sub_admin: 'address_sub_admin'
+      address_admin: 'address_admin'
     10: 
-      address_locality: 'address_locality'
+      address_sub_admin: 'address_sub_admin'
     11: 
+      address_locality: 'address_locality'
+    12: 
       address_dependent_locality: 'address_dependent_locality'
-    12:
-      address_postal_code: 'address_postal_code'
     13:
-      address_organisation_name: 'organisation name'
+      address_postal_code: 'address_postal_code'
     14:
-      address_line1: 'Throughfare'
+      address_organisation_name: 'organisation name'
     15:
+      address_line1: 'Throughfare'
+    16:
       address_line2: 'Premise'
+    17:
+      email: 'email'
+    18:
+      urlValue: 'url source'
+    19:
+      urlTitle: 'url title'
 process:
   type:
-    plugin: default_value
-    default_value: person
+    process:
+      plugin: default_value
+      default_value: person
   nid: nid
-  uid: uid
   # dates need to be in unix format
   created: created
   changed: updated
+  uid: uid
   field_orcid: orcid
   field_person_name/title: name_title
   field_person_name/given: name_given
@@ -94,6 +101,7 @@ process:
   field_address/organization: address_organisation_name
   field_address/address_line1: address_line1
   field_address/address_line2: address_line2
+  field_email: email
 destination:
   plugin: entity:node
   default_bundle: person
