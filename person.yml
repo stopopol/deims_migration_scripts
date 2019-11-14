@@ -77,9 +77,9 @@ source:
     17:
       email: 'email'
     18:
-      urlValue: 'webAddressValue'
+      webAddressValue: 'webAddressValue'
     19:
-      urlTitle: 'webAddressTitle'
+      webAddressTitle: 'webAddressTitle'
     20:
       organisation: 'organisation'
     21: 
@@ -108,8 +108,8 @@ process:
   field_address/address_line1: address_line1
   field_address/address_line2: address_line2
   field_email: email
-  field_url/uri: urlValue
-  field_url/title: urlTitle
+  field_url/uri: webAddressValue
+  field_url/title: webAddressTitle
   field_organisation: 
     -
       plugin: explode
