@@ -50,31 +50,33 @@ source:
     4:
       description: 'description'
     5:
-      relatedSite: 'relatedSite'
+      related_site: 'related_site'
     6:
       lat: 'lat'
     7:
       lon: 'lon'
-
+    8:
+      title: title
 
 process:
   type:
     plugin: default_value
     default_value: observation_location
   nid: nid
-  uuid: field_deims_id
   uid: uid
   # dates need to be in unix format
   created: created
   changed: updated
-  field_name: field_name
-  field_name_short: field_name_short
-  field_deims_id: field_deims_id
+  title: title
+  field_abstract: description
   # needs field keys
-  field_country: field_country
-  # geofield migration not working   field_coordinates: 
-  # field Access Type has new keys
-  field_coordinates:
+  field_related_site:
+    - 
+      plugin: explode
+      delimiter: ';'
+      source: related_site
+  
+  field_boundaries: # needs to be overwritten with actual boundaries values using a sql query
     plugin: geofield_latlon
     source: 
       - lat
