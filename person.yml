@@ -55,7 +55,7 @@ source:
     6:
       name_given: 'First Name'
     7: 
-      orcid: 'Orcid'
+      orcid: 'orcid'
     8: 
       address_country: 'address_country'
     9: 
@@ -77,9 +77,15 @@ source:
     17:
       email: 'email'
     18:
-      urlValue: 'url source'
+      urlValue: 'webAddressValue'
     19:
-      urlTitle: 'url title'
+      urlTitle: 'webAddressTitle'
+    20:
+      organisation: 'organisation'
+    21: 
+      phone: 'phone'
+    22:
+      specialities: 'specialities'
 process:
   type:
     process:
@@ -102,6 +108,23 @@ process:
   field_address/address_line1: address_line1
   field_address/address_line2: address_line2
   field_email: email
+  field_url/uri: urlValue
+  field_url/title: urlTitle
+  field_organisation: 
+    -
+      plugin: explode
+      delimiter: ;
+      source: organisation
+  field_phone: phone
+  field_specialities:
+  - plugin: explode
+    delimiter: ';'
+    source: specialities
+  - plugin: entity_generate
+    entity_type: taxonomy_term
+    value_key: tid
+    bundle_key: vid
+    bundle: speciality
 destination:
   plugin: entity:node
   default_bundle: person
