@@ -56,7 +56,9 @@ source:
     7:
       lon: 'lon'
     8:
-      title: title
+      title: 'title'
+    9:
+      images: 'images'    
 
 process:
   type:
