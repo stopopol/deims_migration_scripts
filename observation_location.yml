@@ -58,8 +58,11 @@ source:
     8:
       title: 'title'
     9:
-      images: 'images'    
-
+      images: 'images'
+    10:
+      elevation_min: 'elevation_min'
+    11:
+      elevation_max: 'elevation_max'
 process:
   type:
     plugin: default_value
@@ -87,6 +90,8 @@ process:
       plugin: explode
       delimiter: ;
       source: images
+  field_elevation_max: elevation_max
+  field_elevation_min: elevation_min
 destination:
   plugin: entity:node
   default_bundle: observation_location
