@@ -61,8 +61,16 @@ source:
     9:
       lon: 'lon'
     10:
-      images: 'Site Images' # experimental
-    
+      images: 'images'
+    11:
+      abstract: 'abstract'
+    12:
+      purpose: 'purpose'
+    13:
+      parent: 'parent'
+    14:
+      subsite: 'subsite'
+
 process:
   type:
     plugin: default_value
@@ -92,7 +100,16 @@ process:
     -
       plugin: explode
       delimiter: ;
-      source: images
+      source: images 
+  field_abstract: abstract
+  field_purpose: purpose
+  field_parent_site: parent
+  field_subsite_name:
+    -
+      plugin: explode
+      delimiter: ;
+      source: subsite 
+   
 destination:
   plugin: entity:node
   default_bundle: site
