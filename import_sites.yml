@@ -70,7 +70,18 @@ source:
       parent: 'parent'
     14:
       subsite: 'subsite'
-
+    15:
+      keywords: 'keywords'
+    16:
+      site_manager: 'site_manager'
+    17:
+      site_owner: 'site_owner'
+    18:
+      funding_agency: 'funding_agency'
+    19:
+      url_title: 'url_title'
+    20:
+      url_value: 'url_value'
 process:
   type:
     plugin: default_value
@@ -109,7 +120,39 @@ process:
       plugin: explode
       delimiter: ;
       source: subsite 
-   
+  field_keywords:
+    -
+      plugin: explode
+      delimiter: ;
+      source: keywords
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: lter_controlled_vocabulary
+  field_site_manager:
+    -
+      plugin: explode
+      delimiter: ;
+      source: site_manager
+  field_site_owner:
+    -
+      plugin: explode
+      delimiter: ;
+      source: site_owner
+  field_funding_agency:
+    -
+      plugin: explode
+      delimiter: ;
+      source: funding_agency
+  field_url:
+    -
+      # To do: doesn't include link titles :/
+      plugin: explode
+      delimiter: ;
+      source: url_value      
+        
 destination:
   plugin: entity:node
   default_bundle: site
