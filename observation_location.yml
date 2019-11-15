@@ -75,13 +75,16 @@ process:
       plugin: explode
       delimiter: ';'
       source: related_site
-  
   field_boundaries: # needs to be overwritten with actual boundaries values using a sql query
     plugin: geofield_latlon
     source: 
       - lat
       - lon
-
+  field_images:
+    -
+      plugin: explode
+      delimiter: ;
+      source: images
 destination:
   plugin: entity:node
   default_bundle: observation_location
