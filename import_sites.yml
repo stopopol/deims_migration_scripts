@@ -82,6 +82,28 @@ source:
       url_title: 'url_title'
     20:
       url_value: 'url_value'
+    21:
+      country: 'country'
+    22:
+      size: 'size'
+    23:
+      temp_max: 'temp_max'
+    24:
+      temp_min: 'temp_min'
+    25:
+      temp_avg: 'temp_avg'
+    26:
+      elevation_min: 'elevation_min'
+    27:
+      elevation_max: 'elevation_max'
+    28:
+      elevation_avg: 'elevation_avg'
+    29:
+      precipitation_annual: 'precipitation_annual'
+    30:
+      precipitation_max: 'precipitation_max'
+    31:
+      precipitation_min: 'precipitation_min'
 process:
   type:
     plugin: default_value
@@ -152,8 +174,24 @@ process:
       # probably do that in a second step using an sql query
       plugin: explode
       delimiter: ;
-      source: url_value      
-        
+      source: url_value
+  field_country:
+    -
+      plugin: explode
+      delimiter: ;
+      source: country
+  field_size: size
+  field_air_temp_max: temp_max
+  field_air_temp_min: temp_min
+  field_air_temp_avg: temp_avg
+  field_elevation_min: elevation_min
+  field_elevation_max: elevation_max
+  field_elevation_avg: elevation_avg
+  field_precipitation_annual: precipitation_annual
+  field_precipitation_max: precipitation_max
+  field_precipitation_min: precipitation_min
+  
+    
 destination:
   plugin: entity:node
   default_bundle: site
