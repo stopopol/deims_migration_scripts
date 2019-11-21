@@ -104,6 +104,10 @@ source:
       precipitation_max: 'precipitation_max'
     31:
       precipitation_min: 'precipitation_min'
+    32:
+      biome: 'biome'
+    33:
+      geobon_biome: 'geobon_biome'
 process:
   type:
     plugin: default_value
@@ -190,8 +194,13 @@ process:
   field_precipitation_annual: precipitation_annual
   field_precipitation_max: precipitation_max
   field_precipitation_min: precipitation_min
+  field_biome: biome
+  field_geo_bon_biome:
+    -
+      plugin: explode
+      delimiter: ;
+      source: geobon_biome
   
-    
 destination:
   plugin: entity:node
   default_bundle: site
