@@ -108,6 +108,10 @@ source:
       biome: 'biome'
     33:
       geobon_biome: 'geobon_biome'
+    34:
+      biogeography: 'biogeography'
+    35:
+      ecosystem_landuse: 'ecosystem_landuse'  
 process:
   type:
     plugin: default_value
@@ -200,7 +204,19 @@ process:
       plugin: explode
       delimiter: ;
       source: geobon_biome
-  
+  field_biogeographical_region: biogeography
+  field_ecosystem_land_use: 
+    -
+      plugin: explode
+      delimiter: ;
+      source: ecosystem_landuse
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: ecosystem_types_and_land_use
+
 destination:
   plugin: entity:node
   default_bundle: site
