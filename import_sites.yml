@@ -111,7 +111,18 @@ source:
     34:
       biogeography: 'biogeography'
     35:
-      ecosystem_landuse: 'ecosystem_landuse'  
+      ecosystem_landuse: 'ecosystem_landuse'
+    36:
+      eunis: 'eunis'
+    37: 
+      geology: 'geology'
+    38:
+      hydrology: 'hydrology'    
+    39:
+      soils: 'soils'
+    40:
+      vegetation: 'vegetation'
+      
 process:
   type:
     plugin: default_value
@@ -216,6 +227,23 @@ process:
       value_key: tid
       bundle_key: vid
       bundle: ecosystem_types_and_land_use
+  field_eunis_habitat: 
+    -
+      plugin: explode
+      delimiter: ;
+      source: eunis
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: eunis_habitat
+
+  field_geology: geology
+  field_hydrology: hydrology	
+  field_soils: soils
+  field_vegetation: vegetation
+
 
 destination:
   plugin: entity:node
