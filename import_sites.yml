@@ -126,6 +126,30 @@ source:
       lter_member_network: 'lter_member_network'
     42:
       affiliation: 'affiliation'
+    43:
+      lter_classification: 'lter_classification'
+    44:
+      site_type: 'site_type'
+    45:
+      site_status: 'site_status'
+    46:  
+      year_established: 'year_established'
+    47:
+      year_closed: 'year_closed'
+    48:
+      history: 'history'
+    49: 
+      parameters: 'parameters'
+    50:
+      research_topics: 'research_topics'
+    51:
+      design_experiments: 'design_experiments'
+    52:
+      design_observation: 'design_observation'
+    53:
+      scale_experiments: 'scale_experiments'
+    54:
+      scale_observation: 'scale_observation'
       
 process:
   type:
@@ -259,21 +283,40 @@ process:
       value_key: tid
       bundle_key: vid
       bundle: projects
+  field_lter_site_classification: lter_classification
+  field_site_type: site_type
+  field_site_status: site_status
+  field_year_established: year_established
+  field_year_closed: year_closed
+  field_history: history
+  field_parameters:   
+    -
+      plugin: explode
+      delimiter: ;
+      source: parameters
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: parameters
+  
+  field_research_topics:      
+    -
+      plugin: explode
+      delimiter: ;
+      source: research_topics
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: research_topics
+  field_design_experiments: design_experiments
+  field_design_observation: design_observation
+  field_scale_experiments: scale_experiments
+  field_scale_observation: scale_observation  
       
-# to do:
-#
-#LTER Site Classification/Category
-#Site Type (Spatial Design)	
-#Site Status	
-#Year Site Established	
-#Year Site Closed	
-#History of Site	
-#Research Topics	
-#Parameters
-#Scale of Observation	
-#Design of Observation	
-#Scale of Experiments	
-#Design of Experiments	
 destination:
   plugin: entity:node
   default_bundle: site
@@ -284,9 +327,11 @@ migration_dependencies:
     
     
     
-# manual steps:
+# (semi-)manual steps:
 #
-# LTER Site Code
-# ICP Forests Code
-# ICOS Site Code
-# Protection Program	
+# LTER Site Code > semi-manual?
+# ICP Forests Code -> manual
+# ICOS Site Code -> manual
+# Protection Program -> ???
+
+# query to update all free text fields to removed incorrect questions marks	
