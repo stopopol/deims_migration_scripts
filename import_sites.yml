@@ -122,6 +122,10 @@ source:
       soils: 'soils'
     40:
       vegetation: 'vegetation'
+    41:
+      lter_member_network: 'lter_member_network'
+    42:
+      affiliation: 'affiliation'
       
 process:
   type:
@@ -243,8 +247,33 @@ process:
   field_hydrology: hydrology	
   field_soils: soils
   field_vegetation: vegetation
-
-
+  field_lter_member_network: lter_member_network
+  field_projects:
+    -
+      plugin: explode
+      delimiter: ;
+      source: affiliation
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: projects
+      
+# to do:
+#
+#LTER Site Classification/Category
+#Site Type (Spatial Design)	
+#Site Status	
+#Year Site Established	
+#Year Site Closed	
+#History of Site	
+#Research Topics	
+#Parameters
+#Scale of Observation	
+#Design of Observation	
+#Scale of Experiments	
+#Design of Experiments	
 destination:
   plugin: entity:node
   default_bundle: site
@@ -252,3 +281,12 @@ destination:
 migration_dependencies:
   optional: 
     - deims_image_migration
+    
+    
+    
+# manual steps:
+#
+# LTER Site Code
+# ICP Forests Code
+# ICOS Site Code
+# Protection Program	
