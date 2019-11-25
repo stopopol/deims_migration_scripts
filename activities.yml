@@ -1,0 +1,93 @@
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-source-plugins/migrating-data-from-a-csv-source
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-destination-plugins-examples/migrating-files-and-images
+
+# vendor/drush/drush/drush migrate-import activities_csv_import
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop activities_csv_import
+# vendor/drush/drush/drush migrate-reset-status activities_csv_import
+# vendor/drush/drush/drush migrate-rollback activities_csv_import 
+
+# For testing:
+# vendor/drush/drush/drush migrate-import activities_csv_import --limit 20
+
+
+# encode csv to utf-8 first (Encoding/Convert to UTF-8)
+
+id: activities_csv_import
+uuid: ea7088e7-c7e5-4816-9c53-861b5731f181
+label: Import activities
+migration_groups:
+  - ACME import
+
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/activities.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [nid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      nid: 'Node ID'
+    1:
+      created: 'Created'
+    2: 
+      updated: 'Updated'
+    3:
+      uid: 'Author ID'
+    4:
+      uuid: 'uuid'
+    5:
+      title: 'title'
+    6:
+      abstract: 'abstract'
+    7:
+      activity_type: 'activity type'
+
+process:
+  type:
+    plugin: default_value
+    default_value: activity
+  nid: nid
+  uid: uid
+  # dates need to be in unix format
+  created: created
+  uuid: uuid
+  title: title
+  field_abstract: abstract
+  field_uuid: uuid
+  field_data_product_type: activity_type
+
+ # to do:
+ #
+ #field_contact
+ #field_data_available_ecopot
+ #field_data_available
+ #field_date_range
+ #field_keywords
+ #field_metadata_provider
+ #field_notes
+ #field_open_data
+ #field_parameters
+ #field_related_site
+ #field_url
+ #field_spatial_scale
+ #field_temporal_resolution
+ # field_temporal_resolution: 
+ 
+destination:
+  plugin: entity:node
+  default_bundle: activity
