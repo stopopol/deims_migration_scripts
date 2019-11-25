@@ -56,6 +56,9 @@ source:
       abstract: 'abstract'
     7:
       activity_type: 'activity type'
+    8:
+      creator: 'creator'
+
 
 process:
   type:
@@ -70,15 +73,22 @@ process:
   field_abstract: abstract
   field_uuid: uuid
   field_data_product_type: activity_type
-
+  field_contact: 
+    - 
+      plugin: explode
+      delimiter: ;
+      source: creator
+  field_metadata_provider:
+    - 
+      plugin: explode
+      delimiter: ;
+      source: creator
+      
  # to do:
- #
- #field_contact
  #field_data_available_ecopot
  #field_data_available
  #field_date_range
  #field_keywords
- #field_metadata_provider
  #field_notes
  #field_open_data
  #field_parameters
@@ -86,7 +96,7 @@ process:
  #field_url
  #field_spatial_scale
  #field_temporal_resolution
- # field_temporal_resolution: 
+
  
 destination:
   plugin: entity:node
