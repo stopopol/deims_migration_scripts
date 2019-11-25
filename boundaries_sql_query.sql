@@ -1,3 +1,5 @@
+-- site boundaries
+
 UPDATE drupal8.node__field_boundaries 
 SET    
 	field_boundaries_value = ( 
@@ -51,3 +53,57 @@ WHERE `entity_id` = 7968
 	
 	-- TO DO;		
     -- and join based on entity_id?
+	
+	
+	
+-- observation location
+
+UPDATE drupal8.node__field_boundaries 
+SET    
+	field_boundaries_value = ( 
+		SELECT `field_data_field_coordinates_geom`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_type = ( 
+		SELECT `field_data_field_coordinates_type`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_lat = ( 
+		SELECT `field_data_field_coordinates_lat`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_lon = ( 
+		SELECT `field_data_field_coordinates_lon`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_left = ( 
+		SELECT `field_data_field_coordinates_left`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_top = ( 
+		SELECT `field_data_field_coordinates_top`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_right = ( 
+		SELECT `field_data_field_coordinates_right`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_bottom = ( 
+		SELECT `field_data_field_coordinates_bottom`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	),
+	field_boundaries_geo_geohash = ( 
+		SELECT `field_data_field_coordinates_geohash`
+		FROM deims7_prod.`field_data_field_coordinates` 
+		WHERE `entity_id` = 7968
+	)
+
+WHERE `entity_id` = 7968	
