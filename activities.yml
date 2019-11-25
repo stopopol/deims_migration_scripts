@@ -58,7 +58,22 @@ source:
       activity_type: 'activity type'
     8:
       creator: 'creator'
-
+    9:
+      ecopotential: 'ecopotential'
+    10:
+      available: 'available'
+    11:
+      open: 'open'
+    12:
+      keywords: 'keywords'
+    13:
+      parameters: 'parameters'
+    14:
+      temporal: 'temporal'
+    15:
+      data_notes: 'data_notes'
+    16:
+      related_site: 'related_site'
 
 process:
   type:
@@ -83,20 +98,40 @@ process:
       plugin: explode
       delimiter: ;
       source: creator
-      
- # to do:
- #field_data_available_ecopot
- #field_data_available
+  field_data_available_ecopot: ecopotential
+  field_data_available: available
+  field_open_data: open
+  field_keywords:
+  - plugin: explode
+    delimiter: ;
+    source: keywords
+  - plugin: entity_lookup
+    entity_type: taxonomy_term
+    value_key: tid
+    bundle_key: vid
+    bundle: lter_controlled_vocabulary
+  field_parameters:      
+    -
+      plugin: explode
+      delimiter: ;
+      source: parameters
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: parameters
+  field_notes: data_notes
+  field_related_site: related_site
+ 
+ # to do: 
  #field_date_range
- #field_keywords
- #field_notes
- #field_open_data
- #field_parameters
- #field_related_site
  #field_url
- #field_spatial_scale
- #field_temporal_resolution
-
+  # at the very end because it causes weird errors
+  field_temporal_resolution: temporal
+  
+       
+ # spatial scale manual transfer because mapping's not possible
  
 destination:
   plugin: entity:node
