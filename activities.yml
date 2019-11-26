@@ -74,7 +74,14 @@ source:
       data_notes: 'data_notes'
     16:
       related_site: 'related_site'
-
+    17:
+      urlTitle: 'urlTitle'
+    18:
+      urlValue: 'urlValue'
+    19:
+      startDate: 'startDate'
+    20:
+      endDate: 'endDate'
 process:
   type:
     plugin: default_value
@@ -123,14 +130,21 @@ process:
       bundle: parameters
   field_notes: data_notes
   field_related_site: related_site
- 
- # to do: 
- #field_date_range
- #field_url
-  # at the very end because it causes weird errors
+  field_url/title: urlTitle
+  field_url/uri: urlValue 
+  field_date_range/value:
+    plugin: format_date
+    source: startDate
+    from_format: 'Y-m-d'
+    to_format: 'Y-m-d'
+  field_date_range/end_value:
+    plugin: format_date
+    source: endDate
+    from_format: 'Y-m-d'
+    to_format: 'Y-m-d'
   field_temporal_resolution: temporal
   
-       
+ # to do:        
  # spatial scale manual transfer because mapping's not possible
  
 destination:
