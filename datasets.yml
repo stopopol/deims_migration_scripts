@@ -8,7 +8,7 @@
 # vendor/drush/drush/drush migrate-rollback datasets_csv_import 
 
 # For testing:
-# vendor/drush/drush/drush migrate-import datasets_csv_import --limit 20
+# vendor/drush/drush/drush migrate-import datasets_csv_import --limit 100
 
 
 # encode csv to utf-8 first (Encoding/Convert to UTF-8)
@@ -61,7 +61,15 @@ source:
     9:
       contact: 'contact'
     10:
-      metadata_provider: 'metadata_provider'    
+      metadata_provider: 'metadata_provider'
+    11:
+      keywords: 'keywords'
+    12:
+      doi: 'doi'
+    13:
+      citation: 'citation'
+    14: 
+      related_activities: 'related_activities'    
 process:
   type:
     plugin: default_value
@@ -92,29 +100,41 @@ process:
     - 
       plugin: explode
       delimiter: ;
-      source: metadata_provider  
+      source: metadata_provider
+  field_keywords:
+    - plugin: explode
+      delimiter: ;
+      source: keywords
+    - plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: lter_controlled_vocabulary    
+  field_doi: doi
+  field_citation: citation 
+  field_related_activity: related_activities
+  
  #field_data_policy_url
  #field_date_range
- #field_doi
  #field_inspire_data_theme
  #field_instrumentation
  #field_dataset_rights
- #field_keywords
  #field_dataset_legal
  #field_method
  #field_method_description
  #field_observation_location
- #field_online_locator
  #field_parameters
  #field_access_use_termref
  #field_quality_assurance
- #field_citation
- #field_related_activity
  #field_temporal_resolution
  #field_sampling_time_unit
  #field_spatial_design
  #field_spatial_scale
  #field_biological_classification
+ 
+ # To do: 
+ #
+ # field_online_locator
  
 destination:
   plugin: entity:node
