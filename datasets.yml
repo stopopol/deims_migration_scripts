@@ -1,0 +1,121 @@
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-source-plugins/migrating-data-from-a-csv-source
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-destination-plugins-examples/migrating-files-and-images
+
+# vendor/drush/drush/drush migrate-import datasets_csv_import
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop datasets_csv_import
+# vendor/drush/drush/drush migrate-reset-status datasets_csv_import
+# vendor/drush/drush/drush migrate-rollback datasets_csv_import 
+
+# For testing:
+# vendor/drush/drush/drush migrate-import datasets_csv_import --limit 20
+
+
+# encode csv to utf-8 first (Encoding/Convert to UTF-8)
+
+id: datasets_csv_import
+uuid: b282a5f2-3b40-480f-a7cd-5714aa03858a
+label: Import datasets
+migration_groups:
+  - ACME import
+
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/datasets.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [nid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      nid: 'Node ID'
+    1:
+      created: 'Created'
+    2: 
+      updated: 'Updated'
+    3:
+      uid: 'Author ID'
+    4:
+      uuid: 'uuid'
+    5:
+      title: 'title'
+    6:
+      abstract: 'abstract'
+    7:
+      related_site: 'related_site' 
+    8:
+      responsible: 'responsible'
+    9:
+      contact: 'contact'
+    10:
+      metadata_provider: 'metadata_provider'    
+process:
+  type:
+    plugin: default_value
+    default_value: dataset
+  nid: nid
+  uid: uid
+  # dates need to be in unix format
+  created: created
+  uuid: uuid
+  title: title
+  field_abstract: abstract
+  field_uuid: uuid
+  field_language: 
+    plugin: default_value
+    default_value: eng
+  field_related_site: related_site
+  field_creator:
+    -
+      plugin: explode
+      delimiter: ;
+      source: responsible
+  field_contact: 
+    - 
+      plugin: explode
+      delimiter: ;
+      source: contact
+  field_metadata_provider:
+    - 
+      plugin: explode
+      delimiter: ;
+      source: metadata_provider  
+ #field_data_policy_url
+ #field_date_range
+ #field_doi
+ #field_inspire_data_theme
+ #field_instrumentation
+ #field_dataset_rights
+ #field_keywords
+ #field_dataset_legal
+ #field_method
+ #field_method_description
+ #field_observation_location
+ #field_online_locator
+ #field_parameters
+ #field_access_use_termref
+ #field_quality_assurance
+ #field_citation
+ #field_related_activity
+ #field_temporal_resolution
+ #field_sampling_time_unit
+ #field_spatial_design
+ #field_spatial_scale
+ #field_biological_classification
+ 
+destination:
+  plugin: entity:node
+  default_bundle: dataset
