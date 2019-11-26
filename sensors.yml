@@ -1,0 +1,77 @@
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-source-plugins/migrating-data-from-a-csv-source
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-destination-plugins-examples/migrating-files-and-images
+
+# vendor/drush/drush/drush migrate-import sensors_csv_import
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop sensors_csv_import
+# vendor/drush/drush/drush migrate-reset-status sensors_csv_import
+# vendor/drush/drush/drush migrate-rollback sensors_csv_import 
+
+# For testing:
+# vendor/drush/drush/drush migrate-import sensors_csv_import --limit 20
+
+
+# encode csv to utf-8 first (Encoding/Convert to UTF-8)
+
+id: sensors_csv_import
+uuid: 5e3d54fa-796e-4eca-b34b-39333d75cb31
+label: Import sensors
+migration_groups:
+  - ACME import
+
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/sensors.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ','
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [nid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  column_names:
+    0:
+      nid: 'Node ID'
+    1:
+      created: 'Created'
+    2: 
+      updated: 'Updated'
+    3:
+      uid: 'Author ID'
+    4:
+      uuid: 'uuid'
+    5:
+      title: 'title'
+    6:
+      abstract: 'abstract'
+
+process:
+  type:
+    plugin: default_value
+    default_value: sensor
+  nid: nid
+  uid: uid
+  # dates need to be in unix format
+  created: created
+  uuid: uuid
+  title: title
+  field_abstract: abstract
+  field_uuid: uuid
+
+  
+ # to do:        
+ # spatial scale manual transfer because mapping's not possible
+ 
+destination:
+  plugin: entity:node
+  default_bundle: sensor
