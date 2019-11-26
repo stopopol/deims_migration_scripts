@@ -54,7 +54,30 @@ source:
       title: 'title'
     6:
       abstract: 'abstract'
-
+    7:
+      contact: 'contact'
+    8: 
+      lat: 'lat'
+    9:
+      lon: 'lon'
+    10:
+      mobile: 'mobile'
+    11:
+      keywords: 'keywords'
+    12:
+      parameters: 'parameters'
+    13:
+      related_site: 'related_site'
+    14: 
+      startDate: 'startDate'
+    15:
+      elevation: 'elevation'
+    16:
+      resultAcquisitionSource: 'resultAcquisitionSource'
+    17:
+      sensor_type: 'sensor_type'
+      
+      
 process:
   type:
     plugin: default_value
@@ -67,10 +90,51 @@ process:
   title: title
   field_abstract: abstract
   field_uuid: uuid
+  field_contact: 
+    - 
+      plugin: explode
+      delimiter: ;
+      source: contact
+  field_coordinates: 
+    plugin: geofield_latlon
+    source: 
+      - lat
+      - lon
+  field_mobile: mobile
+  field_keywords:
+    - plugin: explode
+      delimiter: ;
+      source: keywords
+    - plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: lter_controlled_vocabulary
+  field_parameters:      
+    -
+      plugin: explode
+      delimiter: ;
+      source: parameters
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: parameters
+  field_related_site: related_site
+  field_date_range/value:
+    plugin: format_date
+    source: startDate
+    from_format: 'Y-m-d'
+    to_format: 'Y-m-d'
+  field_elevation_avg: elevation
+  field_result_acquisition_source: resultAcquisitionSource
+  field_sensor_type: sensor_type
 
-  
- # to do:        
- # spatial scale manual transfer because mapping's not possible
+ # to do: 
+ #
+ # check boundaries manually
+ # observations change structure
  
 destination:
   plugin: entity:node
