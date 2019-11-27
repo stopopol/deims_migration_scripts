@@ -182,6 +182,8 @@ source:
       data_notes: 'data_notes'
     70: 
       affiliation_boolean: 'affiliation_boolean'
+    71:
+      metadata_provider: 'metadata_provider'
 process:
   type:
     plugin: default_value
@@ -380,6 +382,11 @@ process:
       source: site_dataservi 
   field_data_notes: data_notes
   field_affiliation_condition: affiliation_boolean
+  field_metadata_provider:
+    -
+      plugin: explode
+      delimiter: ;
+      source: metadata_provider  
 destination:
   plugin: entity:node
   default_bundle: site
