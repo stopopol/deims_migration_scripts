@@ -100,7 +100,7 @@ source:
       sampling_time_span: 'sampling_time_span'
     29:
       sampling_time_unit: 'sampling_time_unit'
-   30:
+    30:
       spatial_scale_design: 'spatial_scale_design'
 process:
   type:
