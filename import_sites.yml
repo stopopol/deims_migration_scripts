@@ -150,7 +150,38 @@ source:
       scale_experiments: 'scale_experiments'
     54:
       scale_observation: 'scale_observation'
-      
+    55:
+      accessible_all_year: 'accessible_all_year'
+    56:
+      access_type: 'access_type'
+    57:
+      infrastructure: 'infrastructure'
+    58:
+      infrastructure_notes: 'infrastructure_notes'
+    59:
+      permanent_operation: 'permanent_operation'
+    60:
+      permanent_power_supply: 'permanent_power_supply'
+    61:
+      operation_notes: 'operation_notes'
+    62:
+      site_visit_interval: 'site_visit_interval'
+    63:
+      maintenance_interval: 'maintenance_interval'
+    64:
+      dataset_rights: 'dataset_rights'
+    65:
+      data_policy_notes: 'data_policy_notes'
+    66:
+      data_policy_url: 'data_policy_url'
+    67:
+      site_datastorloc: 'site_datastorloc'
+    68:
+      site_dataservi: 'site_dataservi'
+    69:
+      data_notes: 'data_notes'
+    70: 
+      affiliation_boolean: 'affiliation_boolean'
 process:
   type:
     plugin: default_value
@@ -266,7 +297,6 @@ process:
       value_key: tid
       bundle_key: vid
       bundle: eunis_habitat
-
   field_geology: geology
   field_hydrology: hydrology	
   field_soils: soils
@@ -300,7 +330,6 @@ process:
       value_key: tid
       bundle_key: vid
       bundle: parameters
-  
   field_research_topics:      
     -
       plugin: explode
@@ -316,7 +345,41 @@ process:
   field_design_observation: design_observation
   field_scale_experiments: scale_experiments
   field_scale_observation: scale_observation  
-      
+  field_accessible_all_year: accessible_all_year
+  field_access_type: access_type
+  field_all_parts_accessible: all_parts_accessible
+  field_infrastructure:    
+    -
+      plugin: explode
+      delimiter: ;
+      source: infrastructure
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: infrastructure
+  field_infrastructure_notes: infrastructure_notes
+  field_permanent_operation: permanent_operation
+  field_permanent_power_supply: permanent_power_supply
+  field_operation_notes: operation_notes
+  field_site_visit_interval: site_visit_interval
+  field_maintenance_interval: maintenance_interval
+  field_dataset_rights:
+    -
+      plugin: explode
+      delimiter: ;
+      source: dataset_rights
+  field_site_data_policy: data_policy_notes
+  field_data_policy_url/uri: data_policy_url
+  field_site_datastorloc: site_datastorloc
+  field_site_dataservi: 
+    -
+      plugin: explode
+      delimiter: ;
+      source: site_dataservi 
+  field_data_notes: data_notes
+  field_affiliation_condition: affiliation_boolean
 destination:
   plugin: entity:node
   default_bundle: site
