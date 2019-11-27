@@ -94,6 +94,14 @@ source:
       dataset_legal: 'dataset_legal'
     26:
       access_termref: 'access_termref'
+    27:
+      qa: 'qa'
+    28:
+      sampling_time_span: 'sampling_time_span'
+    29:
+      sampling_time_unit: 'sampling_time_unit'
+   30:
+      spatial_scale_design: 'spatial_scale_design'
 process:
   type:
     plugin: default_value
@@ -199,7 +207,7 @@ process:
       plugin: explode
       delimiter: ;
       source: dataset_legal
-  field_access_use_termref:      
+  field_access_use_termref:
     -
       plugin: explode
       delimiter: ;
@@ -210,12 +218,46 @@ process:
       value_key: tid
       bundle_key: vid
       bundle: data_policy
+  field_quality_assurance:
+    -
+      plugin: explode
+      delimiter: ;
+      source: qa
+  field_temporal_resolution: sampling_time_span
+  field_sampling_time_unit:
+    -
+      plugin: explode
+      delimiter: ;
+      source: sampling_time_unit
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: temporal_resolution
+  field_spatial_design:
+    -
+      plugin: explode
+      delimiter: ;
+      source: spatial_scale_design
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: spatial_design
+  field_spatial_scale:
+    -
+      plugin: explode
+      delimiter: ;
+      source: spatial_scale_design
+    - 
+      plugin: entity_lookup
+      entity_type: taxonomy_term
+      value_key: tid
+      bundle_key: vid
+      bundle: spatial_scale 
 
- #field_quality_assurance
- #field_temporal_resolution
- #field_sampling_time_unit
- #field_spatial_design
- #field_spatial_scale
  #field_biological_classification
  
  # To do: 
