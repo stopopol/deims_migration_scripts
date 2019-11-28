@@ -1,3 +1,16 @@
+# vendor/drush/drush/drush migrate-import custom_user_migration
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop custom_user_migration
+# vendor/drush/drush/drush migrate-reset-status custom_user_migration
+# vendor/drush/drush/drush migrate-rollback custom_user_migration 
+
+# For testing:
+# vendor/drush/drush/drush migrate-import custom_user_migration --limit 20
+
+
+# encode csv to utf-8 first (Encoding/Convert to UTF-8)
+
+
 id: custom_user_migration
 label: Custom user migration
 uuid: af6249fb-8af4-47b3-ae0a-8d398318a032
