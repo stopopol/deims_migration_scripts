@@ -86,6 +86,7 @@ process:
   uid: uid
   # dates need to be in unix format
   created: created
+  changed: updated
   uuid: uuid
   title: title
   field_abstract: abstract
