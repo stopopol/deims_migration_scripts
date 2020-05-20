@@ -1,0 +1,123 @@
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-source-plugins/migrating-data-from-a-csv-source
+# https://www.drupal.org/docs/8/api/migrate-api/migrate-destination-plugins-examples/migrating-files-and-images
+
+# vendor/drush/drush/drush migrate-import neon_csv_import
+# vendor/drush/drush/drush migrate-status
+# vendor/drush/drush/drush migrate-stop neon_csv_import
+# vendor/drush/drush/drush migrate-reset-status neon_csv_import
+# vendor/drush/drush/drush migrate-rollback neon_csv_import
+
+# For testing:
+# vendor/drush/drush/drush migrate-import neon_csv_import --limit 20
+
+
+# encode csv to utf-8 first (Encoding/Convert to UTF-8)
+
+id: neon_csv_import
+uuid: c1a15cb1-ed8c-4c55-aab8-62074d4afbca
+label: Import neon sites
+migration_groups:
+  - ACME import
+
+source:
+  plugin: csv
+  # Full path to the file.
+  path: '/home/ilter_cwohner/drupal_migration/tabelle1.csv'
+  # Column delimiter. Comma (,) by default.
+  delimiter: ';'
+  # Field enclosure. Double quotation marks (") by default.
+  enclosure: '"'
+  # The number of rows at the beginning which are not data.
+  header_row_count: 1
+  # The column(s) to use as a key. Each column specified will 
+  # create an index in the migration table and too many columns 
+  # may throw an index size error.
+  ids: [nid]
+  # Here we identify the columns of interest in the source file. 
+  # Each numeric key is the 0-based index of the column. 
+  # For each column, the key below is the field name assigned to 
+  # the data on import, to be used in field mappings below. 
+  # The value is a user-friendly string for display by the 
+  # migration UI.
+  
+  column_names:  
+    0:
+      field_name: 'Site Name'
+    1:
+      field_name_short: 'Short Name'
+    2:
+      abstract: 'abstract'
+    3:
+      purpose: 'purpose'
+    4:
+      url_value: 'url_value'
+    5:
+      size: 'size'
+    6: 
+      lat: 'lat'
+    7:
+      lon: 'lon'
+    8:
+      elevation_avg: 'elevation_avg'
+    9:
+      elevation_min: 'elevation_min'
+    10:
+      elevation_max: 'elevation_max'
+    11:
+      temp_avg: 'temp_avg'
+    12:
+      precipitation_annual: 'precipitation_annual'
+    13: 
+      geology: 'geology'
+    14:
+      hydrology: 'hydrology'    
+    15:
+      soils: 'soils'
+    16:
+      vegetation: 'vegetation'
+    17:
+      history: 'history'
+    18:
+      nid: 'nid'
+
+process:
+  type:
+    plugin: default_value
+    default_value: site
+  nid: nid
+  uid:
+    plugin: default_value
+    default_value: 4960
+  # dates need to be in unix format
+  field_name: field_name
+  field_name_short: field_name_short
+  field_country:
+    plugin: default_value
+    default_value: US
+  field_coordinates: 
+    plugin: geofield_latlon
+    source: 
+      - lat
+      - lon
+  field_abstract: abstract
+  field_purpose: purpose
+  field_url: url_value
+  field_size: size
+  field_air_temp_avg: temp_avg
+  field_elevation_min: elevation_min
+  field_elevation_max: elevation_max
+  field_elevation_avg: elevation_avg
+  field_precipitation_annual: precipitation_annual
+  field_precipitation_max: precipitation_max
+  field_precipitation_min: precipitation_min
+  field_geology: geology
+  field_hydrology: hydrology	
+  field_soils: soils
+  field_vegetation: vegetation
+  field_site_status:
+    plugin: default_value
+    default_value: existing
+
+destination:
+  plugin: entity:node
+  default_bundle: site
